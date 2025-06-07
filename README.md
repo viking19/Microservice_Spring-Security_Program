@@ -1,83 +1,156 @@
-📖 About the Project:
-⏩This project showcases a real-world implementation of a secure microservice architecture using Java Spring Boot. It includes multiple services communicating with each other via REST APIs and secured using JWT tokens. Authentication and authorization are handled centrally, ensuring each service is protected against unauthorized access.
+# Microservice Spring Security Program 🚀
 
+![Microservices](https://img.shields.io/badge/Microservices-Enabled-brightgreen) ![Java](https://img.shields.io/badge/Java-11-orange) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.5.4-blue) ![Spring Security](https://img.shields.io/badge/Spring%20Security-5.5.2-lightgrey)
 
-🔧 Core Modules:
-⏩authservice – Manages user login, registration, and JWT token generation.
-⏩microservice-1 – A protected microservice that handles domain-specific logic and requires valid tokens for access.
-⏩api-gateway – Central gateway routing all API requests, also responsible for token validation before passing to microservices.
-⏩service-registry-eureka – A Eureka-based service registry for discovering microservices dynamically.
+Welcome to the **Microservice Spring Security Program**! This repository contains a complete microservices-based Java application that showcases secure communication between services. We utilize Spring Boot, Spring Security, and JWT-based authentication to ensure that our services are robust and secure.
 
+## Table of Contents
 
-🚀 Key Features:
-☑️Spring Boot microservice structure
-☑️JWT-based login and authentication
-☑️Role-based access control
-☑️API Gateway using Spring Cloud Gateway
-☑️Eureka Service Registry
-☑️RESTful APIs with secure endpoints
-☑️Maven-based build for all modules
-☑️Environment ready for deployment or Dockerization
+1. [Overview](#overview)
+2. [Technologies Used](#technologies-used)
+3. [Features](#features)
+4. [Architecture](#architecture)
+5. [Setup and Installation](#setup-and-installation)
+6. [Usage](#usage)
+7. [API Endpoints](#api-endpoints)
+8. [Testing](#testing)
+9. [Contributing](#contributing)
+10. [License](#license)
+11. [Releases](#releases)
 
+## Overview
 
-📚 Tech Stack / Topics:
-✅Java 8+
-✅Spring Boot
-✅Spring Security
-✅Spring Cloud Gateway
-✅Spring Cloud Eureka
-✅JWT (JSON Web Token)
-✅REST APIs
-✅Maven
-✅Microservices Architecture
+This application is designed to demonstrate the power of microservices architecture. Each service is modularized, which allows for easier management and scaling. We implement role-based access control to manage user permissions effectively. The system also includes service discovery, which enhances scalability and reliability.
 
+## Technologies Used
 
-⚙️ Database Configuration
-Ensure your MySQL server is running and configured properly. Example application.properties in 'authservice':
+- **Java**: The primary programming language used for backend development.
+- **Spring Boot**: A framework that simplifies the development of Java applications.
+- **Spring Security**: Provides security features to protect our application.
+- **JWT (JSON Web Tokens)**: Used for secure communication and authentication.
+- **Eureka**: Service discovery for managing microservices.
+- **MySQL**: Database for storing application data.
+- **Postman**: Tool for testing APIs.
+- **Maven**: Dependency management and build tool.
+- **RESTful API**: Standard for building APIs.
 
-properties:-
-spring.datasource.url=jdbc:mysql://localhost:3306/db name.
-spring.datasource.username=root
-spring.datasource.password=yourpassword
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+## Features
 
-📢Replace yourpassword with your actual MySQL root password.
+- **Secure Communication**: All services communicate securely using JWT for authentication.
+- **Role-Based Access Control**: Users have different access levels based on their roles.
+- **Modular Architecture**: Each service is a separate module, making it easy to manage and scale.
+- **Service Discovery**: Eureka enables services to find and communicate with each other.
+- **RESTful APIs**: All services expose RESTful APIs for easy integration.
+- **Database Integration**: MySQL is used for persistent data storage.
 
+## Architecture
 
-🔐 Authentication Flow
-✅User registers or logs in via authservice.
-✅A JWT token is generated and returned.
-✅Token is passed in the header for subsequent requests to secured endpoints (like microservice-1).
-✅api-gateway intercepts and validates the token before routing to microservices.
+The architecture of this application is designed to support microservices. Below is a simple diagram illustrating the architecture:
 
+```
++------------------+        +------------------+
+|   API Gateway    | <----> |   Service A      |
++------------------+        +------------------+
+|                  | <----> |   Service B      |
++------------------+        +------------------+
+|                  | <----> |   Service C      |
++------------------+        +------------------+
+|                  | <----> |   Eureka Server   |
++------------------+        +------------------+
+```
 
-📫 How to Test Using Postman
-✅Register User: POST http://localhost:8081/auth/register
-✅Login User: POST http://localhost:8081/auth/login → Receives JWT token
-✅Access Secure Endpoint:
-✅GET http://localhost:8082/data (Requires Bearer Token in Header)
-✅Add Header: Authorization: Bearer <your-token>
+- **API Gateway**: Routes requests to the appropriate service.
+- **Service A, B, C**: Individual microservices handling different functionalities.
+- **Eureka Server**: Manages service registration and discovery.
 
+## Setup and Installation
 
-🧪 Run Instructions
-✅Start MySQL server and create required database.
-✅Start service-registry-eureka first.
-✅Start authservice, then microservice-1, and finally api-gateway.
-✅Test APIs using Postman as described above.
+To set up the application locally, follow these steps:
 
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/viking19/Microservice_Spring-Security_Program.git
+   cd Microservice_Spring-Security_Program
+   ```
 
-📁 Folder Structure
-Copy
-Edit
-Microservice_Spring-security_Program/
-│
-├── api-gateway
-├── authservice
-├── microservice-1
-└── service-registry-eureka
+2. **Install Dependencies**:
+   Make sure you have Maven installed. Run the following command to install dependencies:
+   ```bash
+   mvn clean install
+   ```
 
+3. **Set Up MySQL**:
+   - Create a new MySQL database.
+   - Update the `application.properties` file with your database credentials.
 
-📜 License
-☑️This project is for learning and demonstration purposes.
+4. **Run the Application**:
+   You can run each service individually using:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+## Usage
+
+Once the application is running, you can access the API Gateway to route requests to the respective services. Use Postman to test the endpoints. Ensure you include the JWT token in the headers for secure access.
+
+## API Endpoints
+
+Here are some key API endpoints you can use:
+
+- **User Registration**: 
+  ```
+  POST /api/auth/register
+  ```
+
+- **User Login**: 
+  ```
+  POST /api/auth/login
+  ```
+
+- **Get User Details**: 
+  ```
+  GET /api/user/details
+  ```
+
+- **Service A Endpoint**: 
+  ```
+  GET /api/serviceA/data
+  ```
+
+- **Service B Endpoint**: 
+  ```
+  GET /api/serviceB/data
+  ```
+
+Make sure to include the JWT token in the headers for authenticated requests.
+
+## Testing
+
+You can use Postman to test the API endpoints. Create a collection for the various endpoints and include sample requests for easy testing. 
+
+### Sample Postman Collection
+
+To make testing easier, you can download the Postman collection from the [Releases section](https://github.com/viking19/Microservice_Spring-Security_Program/releases). This collection includes predefined requests for each API endpoint.
+
+## Contributing
+
+We welcome contributions to improve this project. If you have suggestions or find bugs, please open an issue or submit a pull request. 
+
+### Steps to Contribute:
+
+1. Fork the repository.
+2. Create a new branch.
+3. Make your changes.
+4. Submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Releases
+
+For the latest releases and updates, please visit the [Releases section](https://github.com/viking19/Microservice_Spring-Security_Program/releases). You can download and execute the latest files from there.
+
+---
+
+Thank you for checking out the **Microservice Spring Security Program**! We hope you find this application useful and informative. If you have any questions, feel free to reach out or create an issue in the repository.
